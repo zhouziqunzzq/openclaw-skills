@@ -9,6 +9,16 @@ Backup skills into a git repo with a repeatable and safer process.
 
 ## Quick use
 
+Preferred (JSON config):
+
+```bash
+./scripts/backup_skill.sh \
+  --source /home/harry/.openclaw/workspace/skills/remote-android-adb \
+  --config ~/.openclaw/skill-backup-flow.json
+```
+
+Direct repo arg (optional):
+
 ```bash
 ./scripts/backup_skill.sh \
   --source /home/harry/.openclaw/workspace/skills/remote-android-adb \
@@ -30,4 +40,5 @@ Backup skills into a git repo with a repeatable and safer process.
 
 ## References
 
+- `references/config.example.json`
 - `references/sanitize-checklist.md`

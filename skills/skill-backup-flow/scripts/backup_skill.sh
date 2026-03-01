@@ -5,29 +5,52 @@ usage() {
   cat <<'EOF'
 Usage:
   backup_skill.sh --source <skill_dir> --repo <git_repo_dir> [--message <commit_message>]
+  backup_skill.sh --source <skill_dir> --config <config.json> [--message <commit_message>]
 
 Example:
   backup_skill.sh \
     --source /home/harry/.openclaw/workspace/skills/remote-android-adb \
-    --repo /home/harry/.openclaw/workspace/src/openclaw-skills
+    --config /home/harry/.openclaw/skill-backup-flow.json
 EOF
 }
 
 SOURCE=""
 REPO=""
+CONFIG=""
 MSG=""
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --source) SOURCE="$2"; shift 2 ;;
     --repo) REPO="$2"; shift 2 ;;
+    --config) CONFIG="$2"; shift 2 ;;
     --message) MSG="$2"; shift 2 ;;
     -h|--help) usage; exit 0 ;;
     *) echo "Unknown arg: $1" >&2; usage; exit 1 ;;
   esac
 done
 
+if [[ -n "$CONFIG" ]]; then
+  [[ -f "$CONFIG" ]] || { echo "Config not found: $CONFIG" >&2; exit 1; }
+  if ! command -v python3 >/dev/null 2>&1; then
+    echo "python3 is required for --config" >&2
+    exit 1
+  fi
+  CFG_REPO=$(python3 - "$CONFIG" <<'PY'
+import json, os, sys
+p=os.path.expanduser(sys.argv[1])
+with open(p,'r',encoding='utf-8') as f:
+    c=json.load(f)
+print(os.path.expanduser(c.get('repo_path','')))
+PY
+)
+  if [[ -z "$REPO" ]]; then
+    REPO="$CFG_REPO"
+  fi
+fi
+
 [[ -d "$SOURCE" ]] || { echo "Source not found: $SOURCE" >&2; exit 1; }
+[[ -n "$REPO" ]] || { echo "Missing repo path. Use --repo or --config" >&2; exit 1; }
 [[ -d "$REPO/.git" ]] || { echo "Not a git repo: $REPO" >&2; exit 1; }
 
 SKILL_NAME="$(basename "$SOURCE")"
