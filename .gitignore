@@ -1,0 +1,13 @@
+# Local/private runtime configs
+**/*remote-android-adb*.json
+**/remote-android-adb.json
+
+# Common secrets
+*.pem
+*.key
+*.p12
+*.env
+
+# OS/editor
+.DS_Store
+*.swp
