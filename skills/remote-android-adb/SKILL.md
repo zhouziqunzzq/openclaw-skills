@@ -62,6 +62,32 @@ Use `scripts/remote_adb.sh` to run all remote ADB commands.
 
 If `device_serial` is set in config, the wrapper automatically adds `-s <serial>`.
 
+## Lock-state helper
+
+Use `scripts/is_locked.sh` to check lock state without screenshots.
+
+```bash
+# Minimal output: LOCKED or UNLOCKED
+./scripts/is_locked.sh --config ~/.openclaw/remote-android-adb.json
+
+# Include parsed diagnostics (showing/mIsShowing/interactive/screen)
+./scripts/is_locked.sh --config ~/.openclaw/remote-android-adb.json --verbose
+```
+
+Detection rule used by helper:
+- `showing=true` **or** `mIsShowing=true` => `LOCKED`
+- otherwise => `UNLOCKED`
+
+Quick toggle pattern:
+```bash
+state="$(./scripts/is_locked.sh --config ~/.openclaw/remote-android-adb.json)"
+if [[ "$state" == "LOCKED" ]]; then
+  ./scripts/unlock_device.sh --config ~/.openclaw/remote-android-adb.json
+else
+  ./scripts/remote_adb.sh --config ~/.openclaw/remote-android-adb.json shell input keyevent 26
+fi
+```
+
 ## Common workflows
 
 ### 1) Health check
@@ -111,6 +137,7 @@ mkdir -p ./artifacts/screenshots
 - Use least privilege SSH keys.
 - Pin device serial when multiple phones are attached.
 - Re-run `devices` after reconnect events.
+- Unless you are certain the phone is already unlocked (for example, you just unlocked it or successfully executed an unlock-required command immediately before), **check lock state first** with `scripts/is_locked.sh` and run `scripts/unlock_device.sh` if needed before continuing with the rest of the command sequence.
 
 ## References
 

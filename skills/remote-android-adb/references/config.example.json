@@ -1,6 +1,6 @@
 {
-  "ssh_host": "android-relay",
-  "ssh_user": "relayuser",
+  "ssh_host": "harrygpdarch",
+  "ssh_user": "harry",
   "ssh_port": 22,
   "ssh_identity_file": "~/.ssh/id_ed25519",
   "ssh_extra_args": [
@@ -8,11 +8,11 @@
     "StrictHostKeyChecking=accept-new"
   ],
   "adb_path": "adb",
-  "device_serial": "REPLACE_WITH_DEVICE_SERIAL",
+  "device_serial": "8052a54a",
   "relay_tmp_dir": "/tmp",
   "unlock": {
     "macro": "miui_swipe_pin",
-    "pin": "REPLACE_WITH_PIN",
+    "pin": "1234",
     "submit_enter": true,
     "wake_keyevent": 224,
     "swipe": {
