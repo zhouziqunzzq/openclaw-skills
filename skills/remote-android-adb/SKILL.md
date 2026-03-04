@@ -130,6 +130,16 @@ mkdir -p ./artifacts/screenshots
 ./scripts/remote_adb.sh --config ~/.openclaw/remote-android-adb.json shell input text "hello%sworld"
 ```
 
+## Execution strategy (UI automation)
+
+- **Prefer XML/UIAutomator first** for deterministic UI actions (button taps, dialog confirmation, extracting control bounds/text).
+- **Fallback to visual analysis (screenshots + vision)** when XML is unavailable, unstable, or semantically insufficient (for example, WebView/Chrome content not represented clearly in accessibility tree).
+- For critical actions, use a **hybrid verify pattern**:
+  1) attempt action using XML-derived coordinates/selectors,
+  2) validate result via XML when possible,
+  3) validate via screenshot/vision when XML cannot prove final state.
+- If XML and visual signals conflict, prioritize whichever is more directly tied to the target state, and run an additional confirmation step before proceeding.
+
 ## Guardrails
 
 - Prefer USB debugging on relay machine for stability.
