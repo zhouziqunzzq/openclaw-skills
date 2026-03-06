@@ -9,7 +9,7 @@ description: Use for working with the portfolio-builder v2 project and its agent
 Work with the portfolio-builder v2 repo: set up the venv, install dependencies, install the local algotrading package, and run the agent CLI (`agent-v2-cli.py`) for market data and regime scores.
 
 ## Project Location
-- Repo root: `<workspace>/src/portfolio-builder`
+- Repo root: `/home/harry/.openclaw/workspace/src/portfolio-builder`
 
 ## Environment Setup (venv + deps)
 Run from repo root:
@@ -32,14 +32,20 @@ Notes:
 - Use when you need fresh data before regime calculations.
 - Example:
 ```bash
-python3 v2/tools/agent-v2-cli/agent-v2-cli.py market-data --start 2024-10-05 --end 2026-02-26 --tickers SPY
+python3 v2/tools/agent-v2-cli/agent-v2-cli.py market-data --start YYYY-MM-DD --end YYYY-MM-DD --tickers SPY
 ```
 
 2) `regime`
 - Purpose: Compute regime scores for a given date (uses cached market data).
+- Supports configurable lookback window (calendar days):
+  - Workspace config file (default): `~/\.openclaw/workspace/config/portfolio-builder-v2-regime.json`
+    - Example content: `{ "lookback_days": 252 }`
+  - CLI override: `--lookback-days <int>`
 - Example:
 ```bash
-python3 v2/tools/agent-v2-cli/agent-v2-cli.py regime 2026-02-26 --pretty
+python3 v2/tools/agent-v2-cli/agent-v2-cli.py regime YYYY-MM-DD --pretty
+# override lookback explicitly
+python3 v2/tools/agent-v2-cli/agent-v2-cli.py regime YYYY-MM-DD --lookback-days 252 --pretty
 ```
 
 ## Workflow: Regime Score (with data refresh)
