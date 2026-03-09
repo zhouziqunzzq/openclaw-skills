@@ -1,0 +1,20 @@
+{
+  "nodes": [
+    {
+      "name": "jp3",
+      "host": "jp3.example.com",
+      "user": "root",
+      "port": 22,
+      "roles": ["control-plane", "egress"],
+      "notes": "ss-panel + mysql + egress"
+    },
+    {
+      "name": "cn-relay-1",
+      "host": "cn1.example.com",
+      "user": "root",
+      "port": 22,
+      "roles": ["relay-cn"],
+      "notes": "CN relay / mux node"
+    }
+  ]
+}

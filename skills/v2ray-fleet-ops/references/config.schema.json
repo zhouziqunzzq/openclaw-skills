@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "v2ray-fleet-ops config",
+  "type": "object",
+  "required": ["nodes"],
+  "properties": {
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "host", "user", "port", "roles"],
+        "properties": {
+          "name": {"type": "string"},
+          "host": {"type": "string"},
+          "user": {"type": "string"},
+          "port": {"type": "integer", "minimum": 1, "maximum": 65535},
+          "roles": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minItems": 1
+          },
+          "notes": {"type": "string"}
+        }
+      }
+    }
+  }
+}
