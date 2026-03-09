@@ -8,6 +8,7 @@ Backup repository for custom OpenClaw skills.
   - `portfolio-builder-v2/` — workflows and command guidance for the portfolio-builder v2 project
   - `remote-android-adb/` — remote Android ADB over Tailscale + SSH relay
   - `skill-backup-flow/` — standardized skill backup workflow with sanitization checks and git push
+  - `v2ray-fleet-ops/` — role-aware V2Ray fleet operations (health checks, cautious OS upgrades, SSH-config-driven node management)
 
 ## Safety
 
