@@ -30,7 +30,8 @@ Direct repo arg (optional):
 1. Copy source skill into `<repo>/skills/<skill-name>/`
 2. Run a basic red-flag scan for likely secrets/PII patterns
 3. Show findings (if any) for manual sanitization
-4. Stage + commit + push when clean
+4. If this is a newly added skill folder in the repo, update `<repo>/README.md` to include a one-line entry for the new skill.
+5. Stage + commit + push when clean
 
 ## Notes
 
