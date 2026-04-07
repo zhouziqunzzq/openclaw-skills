@@ -1,6 +1,6 @@
 ---
 name: portfolio-builder-v2
-description: Use for working with the portfolio-builder v2 project and its agent CLI. Includes environment setup, editable installs, CLI entrypoints/subcommands, and regime-score workflows (including market-data refresh). Trigger when asked to run regime checks, fetch market data, or set up the v2 portfolio-builder repo.
+description: Use for working with the portfolio-builder v2 project and its agent CLI. Includes environment setup, editable installs, CLI entrypoints/subcommands, regime-score workflows (including market-data refresh), and Prometheus/MCP-backed observability queries for v2 metrics. Trigger when asked to run regime checks, fetch market data, query portfolio-builder v2 metrics/performance, or set up the v2 portfolio-builder repo.
 ---
 
 # Portfolio Builder V2
@@ -57,3 +57,14 @@ Why refresh first:
 
 Note on defaults:
 - If the user requests a regime score without specifying tickers, the CLI defaults to the configured universe. However the regime calculation itself only depends on SPY; for a lighter refresh the tool will by default fetch market data only for SPY when tickers are not explicitly provided. Consider this behaviour when planning data refreshes.
+
+## Prometheus MCP (v2 observability)
+Use this when the user asks for live account/position/performance/health metrics from portfolio-builder v2 components (for example EML, IML, AT).
+
+Read `references/prometheus-mcp-cheatsheet.md` for:
+- first-time MCP setup
+- health checks
+- metric naming conventions
+- canonical query patterns (equity, positions, lookbacks, YTD available-history)
+
+Keep SKILL.md lean; append new PromQL recipes to the cheatsheet over time.
